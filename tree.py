@@ -61,7 +61,50 @@ class Node:
         print(self.data)
         if self.right:
             self.right.printTree()
+    #******************verticalOrder Supplimentory funcitons*******************
+    # to find the maximum and minimum distac from the root
+    def findMinMAx(self,minimum,maximum,hd):
+        if self.data is None:
+            return
+        else:
+            if hd > maximum[0]:
+                maximum[0] = hd
+            elif hd < minimum[0]:
+                minimum[0] = hd
+            if self.right:
+                self.right.findMinMAx(minimum,maximum,hd+1)
+            if self.left:
+                self.left.findMinMAx(minimum,maximum,hd-1)
+
+    # prints the nodes present in that line
+    def printVerticalLine(self,line_no,hd):
+        if self.data is not None:
+            if line_no == hd:
+                print(self.data,end=" ")
+            if self.right:
+                self.right.printVerticalLine(line_no,hd+1)
+            if self.left:
+                self.left.printVerticalLine(line_no,hd-1)
+    #******************verticalOrder Supplimentory funcitons*******************
+    
+    def verticalOrder(self):
+        maximum = [0]
+        minimum = [0]
+        
+        # find the maximum and minimum
+        self.findMinMAx(minimum,maximum,0)
+    
+        for line_no in range(minimum[0],maximum[0]+1):
+            self.printVerticalLine(line_no,0)
+            print()
             
+    
+            
+x = Node(5)
+x.bst_insert(3)
+x.bst_insert(1)
+x.bst_insert(4)
+x.bst_insert(6)
 
 
 
